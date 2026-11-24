@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nordisk Bilförsäkring</title>
+<style>
+  :root { --ink:#14213d; --accent:#0b6e4f; --warn:#b45309; --bad:#b42318; --line:#d9dee7; }
+  body { font-family: system-ui, sans-serif; color: var(--ink); max-width: 640px; margin: 0 auto; padding: 1.5rem; }
+  header { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+  h1 { font-size: 1.4rem; margin:0; }
+  label { display:block; margin-top:1rem; font-weight:600; }
+  input, select, button { font: inherit; padding:.6rem; border:1px solid var(--line); border-radius:6px; width:100%; box-sizing:border-box; }
+  header select { width:auto; }
+  button { background:var(--accent); color:#fff; border:0; margin-top:1.2rem; cursor:pointer; font-weight:600; }
+  small { color:#5b6577; }
+  #result { margin-top:1.5rem; padding:1rem; border-radius:8px; border:2px solid var(--line); }
+  #result.priced { border-color: var(--accent); }
+  #result.Referred { border-color: var(--warn); }
+  #result.Declined { border-color: var(--bad); }
+  .price { font-size:2.2rem; font-weight:700; }
+  table { width:100%; border-collapse:collapse; margin-top:.8rem; }
+  td { padding:.35rem 0; border-top:1px solid var(--line); } td:last-child { text-align:right; white-space:nowrap; }
+</style>
+</head>
+<body>
+<header><h1 id="title"></h1><select id="lang" aria-label="Language"></select></header>
+<p id="subtitle"></p>
+<form id="form">
+  <label for="pnr" id="l-pnr"></label><input id="pnr" autocomplete="off" inputmode="numeric" placeholder="ÅÅÅÅMMDD-XXXX" required>
+  <label for="reg" id="l-reg"></label><input id="reg" autocomplete="off" placeholder="ABC123" required>
+  <label for="crashes" id="l-crashes"></label><input id="crashes" type="number" min="0" max="20" inputmode="numeric">
+  <button id="go"></button>
+</form>
+<p><small id="gdpr"></small></p>
+<section id="result" hidden aria-live="polite"></section>
+<script>
+const $ = id => document.getElementById(id);
+let S = {};
+const fmt = (n, lang) => new Intl.NumberFormat(lang).format(n);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+async function setLang(lang) {
+  S = await (await fetch('/api/strings/' + lang)).json();
+  localStorage.setItem('lang', lang); document.documentElement.lang = lang;
+  $('title').textContent = S['ui.title']; $('subtitle').textContent = S['ui.subtitle'];
+  $('l-pnr').textContent = S['ui.pnr']; $('l-reg').textContent = S['ui.reg']; $('l-crashes').textContent = S['ui.crashes'];
+  $('go').textContent = S['ui.calc']; $('gdpr').textContent = S['ui.gdpr']; $('lang').setAttribute('aria-label', S['ui.language']);
+  document.title = S['ui.title'] + ' – Nordisk Bilförsäkring';
+  if ($('pnr').value && $('reg').value) submit();   // re-render the explanation in the new language
+}
+
+async function submit(e) {
+  e?.preventDefault();
+  const lang = $('lang').value, c = $('crashes').value;
+  let r;
+  try {
+    const resp = await fetch('/api/quote', { method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ personnummer: $('pnr').value, regnummer: $('reg').value, crashes: c === '' ? null : Number(c), lang }) });
+    if (!resp.ok) throw new Error(resp.status);
+    r = await resp.json();
+  } catch { show('Declined', `<p>${esc(S['ui.error'])}</p>`); return; }
+
+  if (r.status === 'Priced') {
+    const rows = r.lines.map(l => `<tr><td>${esc(l.text)}</td><td>${fmt(l.amount, lang)} kr</td></tr>`).join('');
+    show('priced', `<div>${esc(S['ui.price'])}</div><div class="price">${fmt(r.premium, lang)} ${esc(S['ui.currency'])}</div>
+      <small>${esc(S['ui.product'])} · ${esc(S['ui.car'])}: ${esc(r.car)}</small>
+      <h3>${esc(S['ui.breakdown'])}</h3><table>${rows}<tr><td><b>${esc(S['ui.total'])}</b></td><td><b>${fmt(r.premium, lang)} kr</b></td></tr></table>
+      <small>${esc(S['ui.tariff'])}: ${esc(r.tariffVersion)}</small>`);
+  } else {
+    show(r.status, `<h2>${esc(r.title)}</h2><p>${esc(r.message)}</p>`);
+  }
+}
+function show(cls, html) { const el = $('result'); el.className = cls; el.innerHTML = html; el.hidden = false; }
+
+(async () => {
+  const langs = await (await fetch('/api/languages')).json();
+  $('lang').innerHTML = langs.map(l => `<option value="${l.code}">${l.name}</option>`).join('');
+  const prefer = [localStorage.getItem('lang'), ...navigator.languages.map(x => x.toLowerCase().split('-')[0])];
+  const map = { no: 'nb' };
+  const pick = prefer.map(x => map[x] ?? x).find(x => langs.some(l => l.code === x)) ?? 'sv';
+  $('lang').value = pick; await setLang(pick);
+  $('lang').addEventListener('change', () => setLang($('lang').value));
+  $('form').addEventListener('submit', submit);
+})();
+</script>
+</body>
+</html>

@@ -24,7 +24,7 @@ Ut:  pris           årspremien i hela kronor
 
 Går det inte att lämna ett pris, eller bör bolaget inte göra det, ska lösningen säga det och förklara varför på ett sätt som en kund förstår.
 
-Hur ni bygger lösningen bestämmer ni själva. Ni väljer fritt programmeringsspråk, ramverk, databas och verktyg. Lösningen kan vara helt terminalbaserad, ha ett grafiskt gränssnitt, vara en webbsida, ett API eller något helt annat. Det viktiga är att den fungerar och att ni kan stå för den.
+Hur ni bygger lösningen bestämmer ni själva. Ni väljer fritt programmeringsspråk, ramverk, databas och verktyg. Lösningen kan vara helt terminalbaserad, ha ett grafiskt gränssnitt, vara en webbsida eller något helt annat. Det viktiga är att den fungerar och att ni kan stå för den.
 
 ### Vad bolaget förväntar sig
 
@@ -74,29 +74,39 @@ Personer som har ansökt om bilförsäkring hos bolaget och väntar på ett pris
 * `regnummer`: registreringsnumret på bilen som ska försäkras
 * `antal_krockar_senaste_5_ar`: hur många krockar den sökande själv har orsakat de senaste fem åren, enligt egen uppgift
 
-## Leverans
+## Redovisning
 
-Redovisningen ska svara på följande frågor.
+När tiden är slut redovisar varje grupp sin lösning för juryn och deltagare. Redovisningen ska svara på följande frågor.
 
 * Hur förstod ni problemet, och vad behöver bolaget egentligen?
 * Vad påverkar priset, och hur vet ni det?
 * Hur räknar er prismodell, och varför ser den ut som den gör?
 * Hur fungerar lösningen tekniskt? Visa den live.
 
-Under redovisningen testar juryn er lösning live med egna kombinationer av regnummer och personnummer.
+### Livetest
+
+Redovisningen avslutas med ett livetest.
+
+1. Ni kopplar in er egen dator till tv:n och visar er lösning.
+2. Ni förklarar hur er prismotor fungerar.
+3. Juryn ger er några olika exempel på personnummer och regnummer. Alla grupper får samma exempel.
+4. Ni kör varje exempel i er lösning och visar resultatet.
+5. Ni förklarar för varje exempel varför priset blev som det blev, eller varför lösningen inte lämnade något pris.
+
+Kombinationerna kan innehålla personer och bilar som inte finns i någon av datafilerna. Se till att er lösning är redo att köras när det är er tur.
 
 ## Regler
 
-1. Den enda AI ni får använda är **Composer 2.5 i Cursor**. Inga andra modeller, chattbotar eller assistenter, varken i Cursor eller utanför.
+1. Den enda AI ni får använda är det abonnemang ni fått tillgång till via oss hos Anthropic.
 2. Ni väljer fritt programmeringsspråk, ramverk och tekniker.
 3. Ni får söka information på webben, till exempel dokumentation eller fakta om försäkring.
 
 ## Bedömning
 
-Det finns inget enskilt rätt sätt, men det finns bättre och sämre sätt att komma fram till ett. Juryn bedömer tre saker.
+Det finns inget enskilt rätt svar, men det finns bättre och sämre sätt att komma fram till ett. Juryn bedömer tre saker.
 
 1. **Hur ni har tolkat problemet.** Har ni förstått vad bolaget egentligen behöver, och inte bara vad som står i uppdraget?
 2. **Hur ni har tänkt kring helheten i er problemlösning.** Hänger riskanalys, prismodell, teknik och förklaring ihop till något som bolaget faktiskt kan använda?
-3. **Bör eran prismodell vara lönsam?** Isåfall, varför, varför inte?
+3. **Om ni har fått med alla aspekter som behövs.** Har ni tänkt på allt som krävs för att lösningen ska fungera för bolaget på riktigt?
 
 Lycka till!

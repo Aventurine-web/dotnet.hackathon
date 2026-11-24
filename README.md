@@ -1,3 +1,7 @@
+# MÖTESLÄNK FÖR PRESENTATION
+Gå med som companion mode och dela er skärm vid redovisningstillfället.
+https://meet.google.com/vbx-wnza-gmo
+
 # Dotnet Mentor Hackathon: Prissättning av bilförsäkring
 
 Dotnet Mentor har fått ett nytt uppdrag. Försäkringsbolaget Nordisk Bilförsäkring AB vill ha en lösning som räknar fram vad en bilförsäkring ska kosta, och har anlitat oss för att ta fram den. Under hackathonet är er grupp konsultteamet som ska leverera lösningen.
@@ -67,7 +71,7 @@ Ett utdrag ur bolagets kundregister. Varje rad är en bil som bolaget försäkra
 
 ### ansokningar.csv
 
-Personer som har ansökt om bilförsäkring hos bolaget och väntar på ett pris. Uppgifterna har fyllts i av de sökande själva.
+Personer som har ansökt om bilförsäkring hos bolaget och väntar på ett pris. Uppgifterna har fyllts i av de sökande själva. Uppgifter om bilen finns i bilar.csv och hittas via regnumret.
 
 * `ansokan_id`: ansökans nummer
 * `personnummer`: den sökandes personnummer, tolv siffror
@@ -76,28 +80,28 @@ Personer som har ansökt om bilförsäkring hos bolaget och väntar på ett pris
 
 ## Redovisning
 
-När tiden är slut redovisar varje grupp sin lösning för juryn och deltagare. Redovisningen ska svara på följande frågor.
+När tiden är slut redovisar varje grupp sin lösning för juryn och de andra grupperna. Redovisningen ska svara på följande frågor.
 
 * Hur förstod ni problemet, och vad behöver bolaget egentligen?
 * Vad påverkar priset, och hur vet ni det?
 * Hur räknar er prismodell, och varför ser den ut som den gör?
-* Hur fungerar lösningen tekniskt? Visa den live.
+* Hur fungerar lösningen tekniskt?
 
 ### Livetest
 
 Redovisningen avslutas med ett livetest.
 
-1. Ni kopplar in er egen dator till tv:n och visar er lösning.
+1. Ni går med i mötet och delar er skärm och visar er lösning.
 2. Ni förklarar hur er prismotor fungerar.
 3. Juryn ger er några olika exempel på personnummer och regnummer. Alla grupper får samma exempel.
 4. Ni kör varje exempel i er lösning och visar resultatet.
 5. Ni förklarar för varje exempel varför priset blev som det blev, eller varför lösningen inte lämnade något pris.
 
-Kombinationerna kan innehålla personer och bilar som inte finns i någon av datafilerna. Se till att er lösning är redo att köras när det är er tur.
+Exemplen kan innehålla personer och bilar som inte finns i någon av datafilerna. Se till att er lösning är redo att köras när det är er tur.
 
 ## Regler
 
-1. Den enda AI ni får använda är det abonnemang ni fått tillgång till via oss hos Anthropic.
+1. Den enda LLM ni får använda är det abonnemang ni fått tillgång till via oss hos Anthropic.
 2. Ni väljer fritt programmeringsspråk, ramverk och tekniker.
 3. Ni får söka information på webben, till exempel dokumentation eller fakta om försäkring.
 

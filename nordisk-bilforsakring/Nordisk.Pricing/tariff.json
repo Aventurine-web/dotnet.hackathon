@@ -1,0 +1,18 @@
+{
+  "version": "2026-11-24.1",
+  "baseClaimsPerYear": 2998,
+  "targetLossRatio": 0.70,
+  "minimumPremium": 3500,
+  "ceilingPremium": 40000,
+  "minAge": 18,
+  "baselineCrashFrequency": 0.0552,
+  "credibilityShape": 1.6,
+  "historyFloor": 0.65,
+  "referralMinCrashes": 3,
+  "referralMinCrashRate": 0.4,
+  "age":        [ {"upTo": 24, "factor": 1.9}, {"upTo": 29, "factor": 1.55}, {"upTo": 64, "factor": 1.0}, {"upTo": 74, "factor": 0.7}, {"upTo": 150, "factor": 1.2} ],
+  "horsepower": [ {"upTo": 149, "factor": 1.0}, {"upTo": 199, "factor": 1.35}, {"upTo": 299, "factor": 1.4}, {"upTo": 99999, "factor": 2.15} ],
+  "value":      [ {"upTo": 99999, "factor": 0.7}, {"upTo": 299999, "factor": 1.0}, {"upTo": 599999, "factor": 1.35}, {"upTo": 2000000000, "factor": 3.5} ],
+  "fuel": { "bensin": 1.0, "diesel": 1.2, "hybrid": 1.1, "el": 1.5 },
+  "fuelDefault": 1.2
+}
